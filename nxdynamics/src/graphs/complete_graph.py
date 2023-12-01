@@ -1,4 +1,4 @@
-from network_dynamics.graphs.base import Graph
+from nxdynamics.src.graphs.base import Graph
 
 import networkx as nx
 import random

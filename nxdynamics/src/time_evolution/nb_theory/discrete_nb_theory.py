@@ -1,4 +1,4 @@
-from network_dynamics.time_evolution.discrete_base import DiscreteTimeEvolution
+from nxdynamics.src.time_evolution.discrete_base import DiscreteTimeEvolution
 
 class NBTheory(DiscreteTimeEvolution):
   """

@@ -1,5 +1,5 @@
-# network_dynamics
-Run discrete &amp; continuous time evolution on networks.
+# NXDynanics
+Run discrete &amp; continuous time evolution on networks. Extension of `NetworkX`.
 
 # To Do
 - `SimulationData`
