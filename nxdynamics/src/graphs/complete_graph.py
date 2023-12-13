@@ -2,6 +2,7 @@ from nxdynamics.src.graphs.base import Graph
 
 import networkx as nx
 import random
+import numpy as np
 
 class CompleteGraph(Graph):
   """
@@ -39,7 +40,7 @@ class CompleteGraph(Graph):
     Function is called at __init__.
     """
     size = len(self.G.edges.values())
-    edge_values = randomize_edge_values(size)
+    edge_values = uniform_edge_values(size)
     for edge_ids, value in zip(self.G.edges, edge_values):
       node1, node2 = edge_ids
       self.G[node1][node2]['weight'] = value
@@ -58,6 +59,6 @@ def randomize_node_values(size, mean: float):
     random_values = {key: 1 if random.random() < map else -1 for key in range(size)}
     return random_values
 
-def randomize_edge_values(size) -> list:
-    values = np.random.uniform(-1, 1, size)
+def uniform_edge_values(size: int) -> list:
+    values = np.ones(size)
     return values

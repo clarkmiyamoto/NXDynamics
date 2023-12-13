@@ -24,5 +24,8 @@ class NBTheory(DiscreteTimeEvolution):
 
   def calc_dissonance(self,
                       node_id: int):
-    H = float
+    node_values = self.graph.node_values
+    adj_matrix = self.graph.adj_matrix
+
+
     return H

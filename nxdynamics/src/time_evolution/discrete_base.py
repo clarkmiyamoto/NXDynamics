@@ -1,4 +1,7 @@
-class DiscreteTimeEvolution:
+from nxdynamics.src.time_evolution.base import TimeEvolution
+from nxdynamics.src.graphs.base import Graph
+
+class DiscreteTimeEvolution(TimeEvolution):
   """
   
   Args:
@@ -10,11 +13,5 @@ class DiscreteTimeEvolution:
   def __init__(self,
                graph: Graph,
                asynchronous: bool = True):
-    self.graph = graph
+    super().__init__(graph=graph)
     self.asynchronous = asynchronous
-
-  def noise(self):
-    raise NotImplemented
-
-  def time_evolution(self):
-    raise NotImplemented

@@ -13,6 +13,10 @@ class Graph:
     raise NotImplemented
 
   @property
+  def num_nodes(self) -> int:
+    return self.G.number_of_nodes()
+
+  @property
   def node_values(self) -> np.array:
     return np.array([value[1] for value in self.G.nodes(data='value')])
 
