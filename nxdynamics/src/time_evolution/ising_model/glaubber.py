@@ -41,29 +41,36 @@ class GlaubberDynamics(DiscreteTimeEvolution):
         new_value = -1 * self.graph.node_values[node_id]
         self.graph.set_node_value(node_values={node_id:new_value})
         
-    def run_sweep(self):
-        # Randomly choose a `node_id`. 
-        # This will the spin we'll attempt to flip
-        num_nodes = self.graph.num_nodes
-        node_id = random.randrange(0, num_nodes)
-
+    def run_sweep(self, node_id, record_sweep: bool = False):
         # Sum the spins
         deltaH = self.calc_deltaH(node_id=node_id)
 
         # Calc probability to flip spin `node_id`
         probability_to_flip = self.calc_probability(beta=self.beta, deltaH=deltaH)
-
         if random.random() < probability_to_flip:
             self.flip_spin(node_id=node_id)
         
         # Record this sweep
-        new_node_values = self.graph.node_values
-        new_adj_matrix = self.graph.adj_matrix
-        self.record_step(node_value=new_node_values, adj_matrix=new_adj_matrix)
+        if record_sweep:
+            new_node_values = self.graph.node_values
+            new_adj_matrix = self.graph.adj_matrix
+            self.record_step(node_value=new_node_values, adj_matrix=new_adj_matrix)
     
-    def run_simulation(self, total_steps):
-        for i in tqdm(range(total_steps)):
-            self.run_sweep()
+    def run_simulation(self, 
+                       total_steps: int,
+                       record_sweep: bool = False,
+                       record_final: bool = True):
+        # Batch create order of node flips
+        node_ids = np.random.randint(low=0, 
+                                    high=self.graph.num_nodes - 1,
+                                    size=total_steps)
 
+        # Run Glaubber algorithm
+        for node_id in node_ids:
+            self.run_sweep(node_id=node_id,
+                           record_sweep=record_sweep)
 
-
+        if (record_sweep == False) and record_final:
+            new_node_values = self.graph.node_values
+            new_adj_matrix = self.graph.adj_matrix
+            self.record_step(node_value=new_node_values, adj_matrix=new_adj_matrix)
